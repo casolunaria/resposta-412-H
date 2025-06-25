@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo 412-H: Veredito Final</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cutive+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #111827; /* Fundo escuro */
+            color: #e5e7eb;
+            font-family: 'Cutive Mono', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .container {
+            background-color: #1f2937;
+            border: 1px solid #4b5563;
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.1);
+        }
+        h1, h2, h4 {
+            font-family: 'Special Elite', cursive;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #ef4444; /* Vermelho para alerta */
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+           font-size: 1.2rem;
+           color: #9ca3af;
+           margin-bottom: 2rem;
+        }
+        h4 {
+            font-size: 1.2rem;
+            color: #f87171;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        select, button {
+            width: 100%;
+            padding: 0.75rem;
+            font-family: 'Cutive Mono', monospace;
+            border: 1px solid #4b5563;
+            border-radius: 4px;
+            margin-top: 1rem;
+            background-color: #374151;
+            color: #e5e7eb;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #ef4444;
+            font-family: 'Special Elite', cursive;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #dc2626;
+        }
+        #result-box {
+            margin-top: 2rem;
+            background-color: #111827;
+            padding: 1.5rem;
+            border-radius: 4px;
+            border-left: 4px solid #4b5563;
+            min-height: 100px;
+            white-space: pre-wrap;
+            transition: all 0.5s;
+        }
+        .correct-answer {
+            border-left-color: #4ade80; /* Verde para sucesso */
+        }
+        .wrong-answer {
+            border-left-color: #f87171; /* Vermelho para erro */
+        }
+        .solution-title {
+             font-family: 'Special Elite', cursive;
+             font-size: 1.5rem;
+             color: #4ade80;
+             text-align: center;
+             margin-bottom: 1rem;
+        }
+        #correct-answer-content ul {
+            list-style-type: '» ';
+            padding-left: 1.5rem;
+            line-height: 1.6;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>VEREDITO FINAL</h1>
+        <h2>PROTOCOLO 412-H</h2>
+        
+        <p>Detetive, após analisar todas as evidências, quem você acusa como o verdadeiro responsável pelo desaparecimento da Chave de Coração Pessoal?</p>
+
+        <select id="suspect-select">
+            <option value="" disabled selected>Selecione seu principal suspeito...</option>
+            <option value="Alana Liren">Alana Liren</option>
+            <option value="Leandro Estauros">Leandro Estauros</option>
+            <option value="Isadora M. Dalvo">Isadora M. Dalvo</option>
+            <option value="Lorentz I. Dalvo">Lorentz I. Dalvo</option>
+            <option value="Umbra Velarus">Umbra Velarus</option>
+            <option value="Ameaça Externa">Ameaça Externa</option>
+        </select>
+
+        <button id="submit-verdict">CONFIRMAR VEREDITO</button>
+
+        <div id="result-box">
+            <p class="text-gray-400">Aguardando sua análise final...</p>
+        </div>
+
+    </div>
+
+    <script>
+        const submitButton = document.getElementById('submit-verdict');
+        const suspectSelect = document.getElementById('suspect-select');
+        const resultBox = document.getElementById('result-box');
+
+        const wrongAnswers = {
+            "Alana Liren": "Análise Incorreta. A Técnica Liren estava ocupada demais tentando acobertar seu romance com Dalvo e as falhas técnicas do setor. Ela é uma peça na conspiração, mas não a peça principal. Tente novamente.",
+            "Leandro Estauros": "Veredito Incorreto. Realmente o Leandro Estauros possui grande interesse em produtos mágicos, para estudo e revenda. Entretanto, com esse caso, ele não teve nenhuma ligação. Tente novamente.",
+            "Isadora M. Dalvo": "Análise incorreta. Isadora foi apenas um coração partido em busca de confirmações de uma traição. Alguém no lugar errado e na hora errada. O sofrimento dela acabou se unindo à energia e a consumindo. Tudo isso fez com que ela fosse levada, através do cristal etéreo, para outra realidade, distante de Lunária. Tente outra vez.",
+            "Lorentz I. Dalvo": "Análise Incorreta. O Agente Dalvo é, de fato, culpado de conspiração, mas suas ações foram motivadas pelo pânico. Ele temia que Isadora pudesse ter cometido o crime e, principalmente, que uma investigação mais aprofundada revelasse o incidente anterior que ele abafou para proteger sua carreira. Seu objetivo era manipular as evidências para encerrar o caso o mais rápido possível, não para causar a transposição do artefato. Tente novamente.",
+            "Umbra Velarus": "Negativo, Detetive. Umbra Velarus se deleita no caos, mas raramente o cria. Ele é um observador, não o arquiteto. A verdadeira força por trás do incidente é mais... pessoal. Tente novamente."
+        };
+
+        const correctAnswerHTML = `
+            <div id="correct-answer-content">
+                <h3 class="solution-title">VEREDITO CORRETO</h3>
+                <p><strong>A 'materialização' da CCP não foi um roubo por meios convencionais, mas sim um evento de transposição por ressonância afetiva. O artefato foi movido da Instalação Lunária para o plano externo através de uma conexão emocional profunda, ativada de forma inconsciente.</strong></p>
+                <br>
+                <h4 style="font-family: 'Special Elite', cursive;" class="text-lg text-center">Análise dos Demais Envolvidos:</h4>
+                <ul class="text-sm mt-2 space-y-2">
+                    <li><strong>Dalvo e Alana:</strong> Culpados de conspiração. As ações de Dalvo foram motivadas pelo pânico, temendo que Isadora tivesse cometido um crime e, principalmente, que a investigação revelasse o incidente anterior que ele abafou para proteger sua carreira. Alana foi sua cúmplice para acobertar o romance e as falhas do setor.</li>
+                    <li><strong>Isadora:</strong> O catalisador involuntário. Seu desespero ao descobrir a traição gerou uma imensa onda de energia simbólica. Essa energia não causou a transposição do artefato, mas a consumiu, transportando-a para outra realidade através do poder residual do Cristal Etéreo.</li>
+                    <li><strong>Leandro e Umbra:</strong> Elementos de distração. Leandro, com seu interesse em desviar artefatos para revenda, e Umbra, como um mero espectador atraído pelo caos, não tiveram envolvimento direto no evento principal.</li>
+                </ul>
+                <hr class="my-4 border-gray-600">
+                <div id="confession-container">
+                    <p class="italic">Não adianta esconder mais. Detetive Wendel, você foi descoberto pela sua companheira, detetive Marina, portanto, agora ela tem uma mensagem para você.</p>
+                    <button id="read-message-button" class="mt-4 bg-blue-600 hover:bg-blue-700">LER MENSAGEM</button>
+                </div>
+                <div id="confession-text" class="hidden mt-4">
+                    <h4 class="text-lg text-red-400">A Grande Confissão:</h4>
+                    <p class="italic mt-2">"Sim, detetive. O 'culpado' é você. Você acessou a Instalação em um momento de alta conexão entre nós. Mesmo que não tenha percebido, visto que o tempo Lunário é diferente do nosso tempo. Provavelmente ficou alguns segundos fora por aqui, mas 3 minutos e 17 segundos, por lá. Imagino que não se lembre, mas foi uma escolha sua. Você materializou o artefato na sua mochila. E o 'crime' que cometeu foi roubar a chave do meu próprio coração. Sem planejamento, nem recursos. Apenas com a força incontrolável da nossa conexão. Acho que terei que te prender agora…"</p>
+                    <br>
+                    <p><strong>SENTENÇA FINAL:</strong> Culpado por furtar a chave, atravessar os planos e bagunçar o setor mais delicado da Instalação Lunária.</p>
+                    <p class="mt-2"><strong>PENA:</strong> Amor perpétuo. Sem direito a recurso.</p>
+                </div>
+            </div>
+        `;
+
+        function showConfession() {
+            const confessionContainer = document.getElementById('confession-container');
+            const confessionText = document.getElementById('confession-text');
+            if(confessionContainer && confessionText){
+                confessionContainer.style.display = 'none';
+                confessionText.classList.remove('hidden');
+            }
+        }
+
+        submitButton.addEventListener('click', () => {
+            const selectedSuspect = document.getElementById('suspect-select').value;
+            resultBox.classList.remove('correct-answer', 'wrong-answer');
+
+            if (!selectedSuspect) {
+                resultBox.innerHTML = '<p class="text-yellow-400">É preciso selecionar um suspeito para emitir o veredito final.</p>';
+                return;
+            }
+
+            if (selectedSuspect === "Ameaça Externa") {
+                resultBox.innerHTML = correctAnswerHTML;
+                resultBox.classList.add('correct-answer');
+                document.getElementById('read-message-button').addEventListener('click', showConfession);
+            } else {
+                resultBox.innerHTML = `<p>${wrongAnswers[selectedSuspect]}</p>`;
+                resultBox.classList.add('wrong-answer');
+            }
+        });
+    </script>
+</body>
+</html>
